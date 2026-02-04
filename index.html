@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduIndustrial - Generador de Contenidos Educativos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">⚙️</span>
+                    <span class="logo-text">EduIndustrial</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="upload">
+                    <span class="icon">📤</span>
+                    <span>Subir Archivos</span>
+                </button>
+                <button class="nav-item" data-section="analysis">
+                    <span class="icon">🔍</span>
+                    <span>Análisis</span>
+                </button>
+                <button class="nav-item" data-section="learning-methods">
+                    <span class="icon">📚</span>
+                    <span>Métodos de Aprendizaje</span>
+                </button>
+                <button class="nav-item" data-section="content-generation">
+                    <span class="icon">✨</span>
+                    <span>Generar Contenidos</span>
+                </button>
+                <button class="nav-item" data-section="preview">
+                    <span class="icon">👁️</span>
+                    <span>Vista Previa</span>
+                </button>
+                <button class="nav-item" data-section="export">
+                    <span class="icon">💾</span>
+                    <span>Exportar</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Section: Upload Files -->
+            <section id="upload" class="content-section active">
+                <div class="section-header">
+                    <h1>Subir Documentos</h1>
+                    <p>Carga los archivos necesarios para analizar contenidos educativos</p>
+                </div>
+
+                <div class="upload-container">
+                    <!-- Upload Card 1: Temario -->
+                    <div class="upload-card">
+                        <div class="upload-header">
+                            <h3>📅 Temario por Día</h3>
+                            <p class="file-type">Archivo: Excel (.xlsx)</p>
+                        </div>
+                        <div class="upload-description">
+                            Carga el calendario de temas. Se extraerán módulos, lecciones y estructura del curso.
+                        </div>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="temarioFile" accept=".xlsx,.xls" class="file-input">
+                            <label for="temarioFile" class="file-label">
+                                <span class="upload-icon">📁</span>
+                                <span class="upload-text">Seleccionar archivo</span>
+                            </label>
+                        </div>
+                        <div id="temarioStatus" class="file-status"></div>
+                    </div>
+
+                    <!-- Upload Card 2: Manual -->
+                    <div class="upload-card">
+                        <div class="upload-header">
+                            <h3>📖 Manual Técnico</h3>
+                            <p class="file-type">Archivo: PowerPoint (.pptx)</p>
+                        </div>
+                        <div class="upload-description">
+                            Carga el manual principal. Se extraerá la información base del curso.
+                        </div>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="manualFile" accept=".pptx,.ppt" class="file-input">
+                            <label for="manualFile" class="file-label">
+                                <span class="upload-icon">📁</span>
+                                <span class="upload-text">Seleccionar archivo</span>
+                            </label>
+                        </div>
+                        <div id="manualStatus" class="file-status"></div>
+                    </div>
+
+                    <!-- Upload Card 3: Dinámicas -->
+                    <div class="upload-card">
+                        <div class="upload-header">
+                            <h3>🎯 Dinámicas y Objetivos</h3>
+                            <p class="file-type">Archivo: PowerPoint (.pptx)</p>
+                        </div>
+                        <div class="upload-description">
+                            Carga las dinámicas y sus objetivos de aprendizaje.
+                        </div>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="dinamicasFile" accept=".pptx,.ppt" class="file-input">
+                            <label for="dinamicasFile" class="file-label">
+                                <span class="upload-icon">📁</span>
+                                <span class="upload-text">Seleccionar archivo</span>
+                            </label>
+                        </div>
+                        <div id="dinamicasStatus" class="file-status"></div>
+                    </div>
+
+                    <!-- Upload Card 4: Información Adicional -->
+                    <div class="upload-card">
+                        <div class="upload-header">
+                            <h3>ℹ️ Información Adicional</h3>
+                            <p class="file-type">Archivo: Word (.docx)</p>
+                        </div>
+                        <div class="upload-description">
+                            Carga información complementaria, objetivos adicionales, referencias.
+                        </div>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="infoFile" accept=".docx,.doc" class="file-input">
+                            <label for="infoFile" class="file-label">
+                                <span class="upload-icon">📁</span>
+                                <span class="upload-text">Seleccionar archivo</span>
+                            </label>
+                        </div>
+                        <div id="infoStatus" class="file-status"></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="analyzeBtn" class="btn btn-primary">
+                        <span class="btn-icon">🚀</span>
+                        Analizar Archivos
+                    </button>
+                    <button id="clearBtn" class="btn btn-secondary">
+                        <span class="btn-icon">🗑️</span>
+                        Limpiar
+                    </button>
+                </div>
+
+                <div id="uploadProgress" class="progress-container" style="display:none;">
+                    <div class="progress-info">
+                        <span class="progress-label">Procesando archivos...</span>
+                        <span class="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Analysis Results -->
+            <section id="analysis" class="content-section">
+                <div class="section-header">
+                    <h1>Análisis de Contenidos</h1>
+                    <p>Resultados del análisis de los documentos cargados</p>
+                </div>
+
+                <div id="analysisResults" class="analysis-results">
+                    <div class="empty-state">
+                        <span class="empty-icon">📊</span>
+                        <p>Carga y analiza archivos para ver los resultados aquí</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Learning Methods -->
+            <section id="learning-methods" class="content-section">
+                <div class="section-header">
+                    <h1>Métodos de Aprendizaje</h1>
+                    <p>Selección de métodos educativos basados en taxonomía de Bloom</p>
+                </div>
+
+                <div id="learningMethodsContent" class="learning-methods-content">
+                    <div class="empty-state">
+                        <span class="empty-icon">📚</span>
+                        <p>Analiza primero los archivos para generar las recomendaciones</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Content Generation -->
+            <section id="content-generation" class="content-section">
+                <div class="section-header">
+                    <h1>Generar Contenidos</h1>
+                    <p>Prompts, guiones y guías para crear elementos educativos</p>
+                </div>
+
+                <div id="contentGenerationContainer" class="content-generation-container">
+                    <div class="empty-state">
+                        <span class="empty-icon">✨</span>
+                        <p>Selecciona métodos de aprendizaje para generar contenidos</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Preview -->
+            <section id="preview" class="content-section">
+                <div class="section-header">
+                    <h1>Vista Previa de Estructura</h1>
+                    <p>Visualiza la estructura del curso propuesta</p>
+                </div>
+
+                <div id="previewContent" class="preview-content">
+                    <div class="empty-state">
+                        <span class="empty-icon">👁️</span>
+                        <p>Los contenidos aparecerán aquí después del análisis</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Export -->
+            <section id="export" class="content-section">
+                <div class="section-header">
+                    <h1>Exportar Resultados</h1>
+                    <p>Descarga todos los datos generados en diferentes formatos</p>
+                </div>
+
+                <div class="export-options">
+                    <div class="export-card">
+                        <h3>📄 Exportar como JSON</h3>
+                        <p>Incluye toda la estructura, análisis y prompts generados</p>
+                        <button class="btn btn-secondary" id="exportJson">Descargar JSON</button>
+                    </div>
+
+                    <div class="export-card">
+                        <h3>📊 Exportar como Excel</h3>
+                        <p>Módulos, lecciones, objetivos y métodos de aprendizaje</p>
+                        <button class="btn btn-secondary" id="exportExcel">Descargar Excel</button>
+                    </div>
+
+                    <div class="export-card">
+                        <h3>📝 Exportar Prompts</h3>
+                        <p>Todos los prompts generados para IA y diseñadores</p>
+                        <button class="btn btn-secondary" id="exportPrompts">Descargar Prompts</button>
+                    </div>
+
+                    <div class="export-card">
+                        <h3>📋 Exportar Guiones</h3>
+                        <p>Guiones para videos, animaciones y contenido multimedia</p>
+                        <button class="btn btn-secondary" id="exportScripts">Descargar Guiones</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal for Details -->
+        <div id="detailsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Detalles</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="bloomTaxonomy.js"></script>
+    <script src="contentAnalyzer.js"></script>
+    <script src="learningMethodsSelector.js"></script>
+    <script src="promptGenerator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
